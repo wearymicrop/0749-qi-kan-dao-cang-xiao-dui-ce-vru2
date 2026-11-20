@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>期刊到藏校对册</title>
+  <link rel="stylesheet" href="/static/paper.css">
+  <link rel="stylesheet" href="/static/catalog.css">
+  <link rel="stylesheet" href="/static/print.css" media="print">
+  <script type="module" src="/static/desk.js"></script>
+</head>
+<body>
+  <aside class="margin">
+    <a href="/" class="imprint"><i aria-hidden="true"></i><span>馆藏编校室</span></a>
+    <nav aria-label="校对索引">
+      {% for key, name in sections.items() %}<a href="#{{ key }}" data-stage="{{ key }}"{% if loop.first %} aria-current="location"{% endif %}>{{ name }}</a>{% endfor %}
+    </nav>
+    <div class="edition"><span>连续出版物</span><strong>到藏 / 期位</strong></div>
+  </aside>
+  <div class="work">
+    <header>
+      <span>馆藏编校 <b>／</b> 期刊</span>
+      <div class="tools">
+        <label for="sample">清册</label>
+        <select id="sample">
+          {% for key, label in samples.items()|reverse %}<option value="{{ key }}">{{ label }}</option>{% endfor %}
+          <option value="custom">自备清册</option>
+        </select>
+        <button class="ink" id="save" type="button">归档本次勾稽</button>
+      </div>
+    </header>
+    <main>
+      <div class="masthead"><div><div class="folio">连续出版物 · 到藏索引</div><h1>期刊到藏校对册</h1></div><div class="edition-note" id="edition-note">清册读取中</div></div>
+      <div id="custom" hidden>
+        <label for="source-data">清册 JSON</label><textarea id="source-data" rows="5" spellcheck="false"></textarea>
+        <button id="preview" type="button">核算清册</button>
+      </div>
+      <div class="kpis" id="totals" aria-live="polite"></div>
+      <div class="spread">
+        <section class="panel register" id="balance" aria-labelledby="register-title">
+          <div class="panel-heading">
+            <h2 id="register-title">期位校对</h2>
+            <div class="filters"><label for="chain">订阅链</label><select id="chain"><option value="all">全部</option></select><label for="filter">状态</label><select id="filter"><option value="all">全部</option><option value="disputed">争议</option><option value="missing">缺刊</option><option value="covered">已覆盖</option></select></div>
+          </div>
+          <div class="register-scroll">
+            <table aria-label="应到与到藏对照"><thead><tr><th scope="col">订阅链</th><th scope="col">应到卷期</th><th scope="col">勾稽</th><th scope="col">到藏记录</th><th scope="col">原件</th></tr></thead><tbody id="register"></tbody></table>
+          </div>
+          <div class="sum" id="sum"></div>
+        </section>
+        <aside class="panel docket" aria-labelledby="docket-title">
+          <div class="panel-heading"><h2 id="docket-title">来刊原件</h2><span class="folio" id="evidence-ref"></span></div>
+          <div id="evidence" class="evidence" aria-live="polite">请选择一个期位。</div>
+        </aside>
+      </div>
+      <section class="panel supplement" aria-labelledby="extras-title">
+        <div class="panel-heading"><h2 id="extras-title">增刊与隔离</h2></div>
+        <div class="extras" id="extras"></div>
+      </section>
+      <section class="panel stage" id="stage" hidden aria-labelledby="stage-title">
+        <div class="panel-heading"><h2 id="stage-title">阶段记录</h2></div>
+        <div class="stage-body" id="stage-body"></div>
+      </section>
+      <section class="panel archive" id="runs" aria-labelledby="archive-title">
+        <div class="panel-heading"><h2 id="archive-title">证据寄送</h2><small id="run-metadata"></small></div>
+        <div class="archive-tools"><button id="rerun" type="button" disabled>重跑归档</button><a id="export" hidden>下载勾稽凭证</a><button id="print" type="button">打印校对册</button><span role="status" id="run-feedback"></span></div>
+      </section>
+    </main>
+    <footer><span id="status" role="status">读取清册…</span><span>规则 {{ version }} · 年度期位 · UTC</span><a href="/docs">接口文档</a></footer>
+  </div>
+  <script type="application/json" id="reason-labels">{{ labels|tojson }}</script>
+</body>
+</html>

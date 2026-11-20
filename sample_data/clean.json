@@ -1,0 +1,123 @@
+{
+  "rules": [
+    {
+      "chain": "CST",
+      "from_year": 2025,
+      "to_year": 2026,
+      "first_volume": 17,
+      "issues_per_year": 4,
+      "numbering": "yearly"
+    },
+    {
+      "chain": "GEO",
+      "from_year": 2025,
+      "to_year": 2026,
+      "first_volume": 3,
+      "issues_per_year": 3,
+      "numbering": "continuous",
+      "first_issue": 7
+    }
+  ],
+  "titles": [
+    {
+      "chain": "CST",
+      "title": "海岸观测通报",
+      "from_year": 2025,
+      "to_year": 2025
+    },
+    {
+      "chain": "CST",
+      "title": "海岸观测季刊",
+      "from_year": 2026,
+      "to_year": 2026
+    },
+    {
+      "chain": "GEO",
+      "title": "方志资料辑刊",
+      "from_year": 2025,
+      "to_year": 2026
+    }
+  ],
+  "receipts": [
+    {
+      "accession": "00001",
+      "title": "海岸观测通报",
+      "year": 2025,
+      "volume": "017",
+      "issue": "01–02",
+      "kind": "regular"
+    },
+    {
+      "accession": "00002",
+      "title": "海岸观测通报",
+      "year": 2025,
+      "volume": "17",
+      "issue": "03",
+      "kind": "regular"
+    },
+    {
+      "accession": "00003",
+      "title": "海岸观测通报",
+      "year": 2025,
+      "volume": "17",
+      "issue": "04",
+      "kind": "regular"
+    },
+    {
+      "accession": "00004",
+      "title": "海岸观测季刊",
+      "year": 2026,
+      "volume": "18",
+      "issue": "1",
+      "kind": "regular"
+    },
+    {
+      "accession": "00005",
+      "title": "海岸观测季刊",
+      "year": 2026,
+      "volume": "18",
+      "issue": "2",
+      "kind": "regular"
+    },
+    {
+      "accession": "00006",
+      "title": "海岸观测季刊",
+      "year": 2026,
+      "volume": "18",
+      "issue": "3-4",
+      "kind": "regular"
+    },
+    {
+      "accession": "00007",
+      "title": "海岸观测季刊",
+      "year": 2026,
+      "volume": "18",
+      "issue": "增刊１",
+      "kind": "supplement"
+    },
+    {
+      "accession": "00008",
+      "title": "方志资料辑刊",
+      "year": 2025,
+      "volume": "3",
+      "issue": "7–9",
+      "kind": "regular"
+    },
+    {
+      "accession": "00009",
+      "title": "方志资料辑刊",
+      "year": 2026,
+      "volume": "4",
+      "issue": "10–11",
+      "kind": "regular"
+    },
+    {
+      "accession": "00010",
+      "title": "方志资料辑刊",
+      "year": 2026,
+      "volume": "4",
+      "issue": "12",
+      "kind": "regular"
+    }
+  ]
+}

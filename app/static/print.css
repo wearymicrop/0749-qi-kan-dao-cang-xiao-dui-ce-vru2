@@ -1,0 +1,10 @@
+@media print {
+  :root { --bg: #fffdf8; --panel: #fffdf8; --rail: #f3eee5; }
+  body, .spread { display: block; }
+  header, nav, .margin, footer, .filters, .archive-tools, #custom, .stage { display: none; }
+  main { padding: 0; }
+  .register-scroll, .evidence { overflow: visible; max-height: none; }
+  .docket { margin-top: 14px; }
+  th { position: static; }
+  tr, article { break-inside: avoid; }
+}

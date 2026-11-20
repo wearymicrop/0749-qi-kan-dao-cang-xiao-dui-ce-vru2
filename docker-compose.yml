@@ -1,0 +1,16 @@
+services:
+  app:
+    build: .
+    ports:
+      - "${SERIAL_LEDGER_PORT:-18443}:8000"
+    environment:
+      SERIAL_LEDGER_DB: /data/ledger.sqlite3
+    volumes:
+      - ledger:/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "from urllib.request import urlopen; urlopen('http://127.0.0.1:8000/api/health', timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 8
+volumes:
+  ledger:
