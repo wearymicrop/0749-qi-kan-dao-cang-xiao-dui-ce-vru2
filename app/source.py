@@ -12,6 +12,7 @@ class LedgerInput(BaseModel):
     rules: list[dict]
     titles: list[dict]
     receipts: list[Any]
+    specs: list[dict] | None = None
 
 
 class Selection(BaseModel):
@@ -30,7 +31,7 @@ def resolve(source):
         raise LedgerError("CHOOSE_SOURCE", "请选择样例或提交一份订购清册")
     if source.sample is not None:
         return load_sample(source.sample), source.sample
-    data = source.data.model_dump()
+    data = source.data.model_dump(exclude_none=True)
     if any(len(rows) > MAX_RECORDS for rows in data.values()):
         raise LedgerError("TOO_MANY_ROWS", f"单表最多 {MAX_RECORDS} 行", 413)
     try:

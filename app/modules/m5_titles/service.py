@@ -36,13 +36,22 @@ def build_titles(rows, orders):
             "index": by_title}
 
 
-def resolve_titles(parsed, titles):
+def resolve_titles(parsed, titles, transitions=None):
+    transitions = transitions or {}
     matched, isolated = [], []
     for row in parsed["parsed"]:
-        periods = titles["index"].get(title_key(row["title"]), [])
+        key = title_key(row["title"])
+        periods = titles["index"].get(key, [])
         match = next((period for period in periods if period.from_year <= row["year"] <= period.to_year), None)
         if match:
-            matched.append({**row, "chain": match.chain, "official_title": match.title})
+            matched.append({**row, "chain": match.chain, "official_title": match.title,
+                            "basis": "CURRENT_TITLE", "spec": match.spec})
+            continue
+        bridge = next((entry for entry in transitions.get(key, [])
+                       if entry["from_year"] <= row["year"] <= entry["to_year"]), None)
+        if bridge:
+            matched.append({**row, "chain": bridge["chain"], "official_title": bridge["title"],
+                            "basis": "TRANSITION_TITLE", "spec": bridge["spec"], "expires": bridge["to_year"]})
         else:
             isolated.append({**row, "code": "TITLE_EXPIRED" if periods else "UNKNOWN_TITLE"})
     return {"periods": titles["periods"], "matched": matched, "isolated": isolated}

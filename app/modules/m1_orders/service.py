@@ -44,8 +44,10 @@ def build_orders(rows):
                 volume = order.first_volume + offset
                 first = 1 if order.numbering == "yearly" else order.first_issue + offset * order.issues_per_year
                 last = first + order.issues_per_year - 1
-                years_by_chain.append({"chain": chain, "year": year, "volume": volume, "first": first, "last": last})
-                slots.extend({"chain": chain, "year": year, "volume": volume, "issue": issue}
+                years_by_chain.append({"chain": chain, "year": year, "volume": volume, "first": first,
+                                       "last": last, "numbering": order.numbering,
+                                       "issues_per_year": order.issues_per_year, "spec": order.spec})
+                slots.extend({"chain": chain, "year": year, "volume": volume, "issue": issue, "spec": order.spec}
                              for issue in range(first, last + 1))
             if len(slots) > 10000:
                 raise LedgerError("TOO_MANY_SLOTS", "应到期位超过 10000")

@@ -26,3 +26,13 @@ def client(tmp_path, monkeypatch):
     monkeypatch.setenv("SERIAL_LEDGER_DB", str(tmp_path / "test.sqlite3"))
     with TestClient(app) as test_client:
         yield test_client
+
+
+@pytest.fixture
+def renewal():
+    return load_sample("renewal")
+
+
+@pytest.fixture
+def renewal_stages(renewal):
+    return calculate(renewal)

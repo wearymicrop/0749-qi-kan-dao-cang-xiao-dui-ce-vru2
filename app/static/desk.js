@@ -1,4 +1,4 @@
-import { element, folio, paintEvidence, paintExtras, stageTable, states } from './evidence.js';
+import { element, folio, paintEvidence, paintExtras, paintSpecs, stageTable, states } from './evidence.js';
 
 const $ = id => document.getElementById(id);
 const sample = $('sample');
@@ -30,16 +30,18 @@ function paintRows() {
   $('register').replaceChildren();
   if (!rows.length) {
     const cell = $('register').insertRow().insertCell();
-    cell.colSpan = 5;
+    cell.colSpan = 6;
     cell.textContent = '试试其他筛选条件。';
   }
   for (const slot of rows) {
     const row = $('register').insertRow();
     row.dataset.status = slot.status;
+    row.classList.toggle('changed', slot.changed && slot.changed.length > 0);
     row.classList.toggle('selected', selected === slot);
     row.insertCell().textContent = slot.chain;
     row.insertCell().textContent = folio(slot);
     row.insertCell().append(element('span', states[slot.status], 'seal'));
+    row.insertCell().append(element('code', slot.spec || '—'));
     row.insertCell().append(element('code', slot.evidence.map(item => item.accession).join(' / ') || '—'));
     const button = element('button', '看原件');
     button.type = 'button';
@@ -105,6 +107,7 @@ async function preview() {
   $('register').replaceChildren();
   $('sum').textContent = '';
   $('extras').replaceChildren();
+  paintSpecs(null);
   paintEvidence(null);
   try {
     let source = { sample: choice };
@@ -129,6 +132,7 @@ async function preview() {
     }));
     const years = data.years.map(row => row.year);
     $('edition-note').textContent = `${Math.min(...years)}—${Math.max(...years)} 年 · ${data.row_totals.input} 条来刊记录`;
+    paintSpecs(data);
     paintRows();
     paintExtras(claims.supplements, data.quarantine, intake.duplicates);
     $('status').textContent = '清册已核算';

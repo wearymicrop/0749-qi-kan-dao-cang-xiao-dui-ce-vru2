@@ -8,7 +8,7 @@ from app.reasons import LABELS
 pages = APIRouter(include_in_schema=False)
 templates = Jinja2Templates(directory=ROOT / "app/templates")
 INDEX = {
-    "balance": "缺刊勾稽", "orders": "订购规则", "receipts": "来刊采信",
+    "balance": "缺刊勾稽", "specs": "出版说明", "orders": "订购规则", "receipts": "来刊采信",
     "numbering": "卷期解析", "combined": "合期展期", "titles": "刊名沿革", "runs": "证据寄送",
 }
 

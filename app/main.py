@@ -14,12 +14,13 @@ from app.modules.m4_combined.handler import router as combined
 from app.modules.m5_titles.handler import router as titles
 from app.modules.m6_balance.handler import router as balance
 from app.modules.m7_dispatch.handler import router as dispatch
+from app.modules.m8_specs.handler import router as specs
 from app.store import connect
 from app.web import pages
 
 app = FastAPI(title="期刊到藏校对册", version=RULE_VERSION)
 app.mount("/static", StaticFiles(directory=ROOT / "app/static"), name="static")
-for router in (orders, receipts, numbering, combined, titles, balance, dispatch, pages):
+for router in (orders, receipts, numbering, combined, titles, specs, balance, dispatch, pages):
     app.include_router(router)
 
 

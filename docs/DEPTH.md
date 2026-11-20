@@ -11,6 +11,7 @@
 | M5 刊名沿革 | 按出版年度追溯刊名所属订阅链 | `GET /api/titles/dirty` | `app/modules/m5_titles/service.py` | `tests/test_titles.py` |
 | M6 缺刊勾稽 | 比对期位与来刊行的分区账目 | `GET /api/balance/dirty` | `app/modules/m6_balance/service.py` | `tests/test_balance.py` |
 | M7 证据寄送 | 按输入与规则摘要封存并重跑证据 | `POST /api/runs` | `app/modules/m7_dispatch/service.py` `app/store.py` | `tests/test_dispatch.py` |
+| M8 出版说明裁决 | 裁定并存说明、归属期位与归链依据 | `GET /api/specs/dirty` | `app/modules/m8_specs/service.py` | `tests/test_specs.py` |
 
 ## 陷阱登记
 
@@ -28,6 +29,11 @@
 | TRAP-10 | 改刊名后继续订阅 | 同一订阅被拆为两条链 | 按出版年度解析新旧刊名 | `app/modules/m5_titles/service.py` | `tests/test_titles.py::test_title_change_keeps_chain` |
 | TRAP-11 | 合期与单期部分重叠 | 两个期位全部进入争议 | 只标记重叠期位 | `app/modules/m6_balance/slots.py` | `tests/test_balance.py::test_overlap_only_disputes_shared_slot` |
 | TRAP-12 | 同份数据重跑 | 生成第二份档案并覆盖时间 | 使用版本与输入摘要定位首份归档 | `app/store.py` | `tests/test_dispatch.py::test_archive_and_rerun_keep_digest_and_first_result` |
+| TRAP-13 | 续订时期号改为跨年连排 | 新年第 1 期被当成复位或重复 | 按出版说明分段连排，逐期位标归属说明 | `app/modules/m8_specs/service.py` | `tests/test_specs.py::test_continuous_numbering_carries_across_the_new_name` |
+| TRAP-14 | 改版后旧刊名补刊寄到 | 补刊被当成缺刊或未知刊 | 过渡期内旧刊名回挂原链并标归链依据 | `app/modules/m8_specs/service.py` | `tests/test_specs.py::test_transition_old_title_returns_to_original_chain` |
+| TRAP-15 | 两套出版说明并存 | 同期位重复开单或说明互斥失效 | 按生效年归属，最新为采用、其余留存 | `app/modules/m8_specs/service.py` | `tests/test_specs.py::test_two_specs_coexist_and_newest_is_adopted` |
+| TRAP-16 | 说明切换后同份清册重跑 | 覆盖被重复累加 | 同摘要只定位首份归档与原结果 | `app/store.py` | `tests/test_dispatch.py::test_concurrent_retries_have_one_row` |
+| TRAP-17 | 新说明切换失败 | 旧版连同原件一起丢失 | 回退上一版并留存被弃说明与原因码 | `app/modules/m8_specs/service.py` | `tests/test_specs.py::test_broken_new_spec_falls_back_and_keeps_old_records` |
 
 ## 对账规则
 

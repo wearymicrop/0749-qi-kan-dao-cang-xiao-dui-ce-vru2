@@ -16,3 +16,4 @@ class Order(BaseModel):
     issues_per_year: Annotated[StrictInt, Field(ge=1, le=60)]
     numbering: Literal["yearly", "continuous"]
     first_issue: Positive = 1
+    spec: Key | None = None

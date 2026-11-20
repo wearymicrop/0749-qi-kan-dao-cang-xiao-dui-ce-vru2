@@ -9,3 +9,4 @@ class TitlePeriod(BaseModel):
     title: Key
     from_year: Year
     to_year: Year
+    spec: Key | None = None

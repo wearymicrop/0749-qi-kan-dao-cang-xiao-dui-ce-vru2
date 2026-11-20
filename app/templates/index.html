@@ -36,6 +36,32 @@
         <button id="preview" type="button">核算清册</button>
       </div>
       <div class="kpis" id="totals" aria-live="polite"></div>
+      <section class="panel specs" id="specs" aria-labelledby="specs-title">
+        <div class="panel-heading">
+          <h2 id="specs-title">出版说明裁决</h2>
+          <span class="folio" id="specs-adopted"></span>
+        </div>
+        <div class="spec-banner" id="specs-banner"></div>
+        <div class="spec-grid">
+          <div class="spec-block">
+            <h3>采用的说明与留存</h3>
+            <div id="specs-list"></div>
+            <p class="spec-note" id="specs-governing"></p>
+          </div>
+          <div class="spec-block">
+            <h3>受影响期位</h3>
+            <div id="specs-affected"></div>
+          </div>
+          <div class="spec-block">
+            <h3>归链依据</h3>
+            <div id="specs-basis"></div>
+          </div>
+          <div class="spec-block">
+            <h3>尚未核清的争议</h3>
+            <div id="specs-unresolved"></div>
+          </div>
+        </div>
+      </section>
       <div class="spread">
         <section class="panel register" id="balance" aria-labelledby="register-title">
           <div class="panel-heading">
@@ -43,7 +69,7 @@
             <div class="filters"><label for="chain">订阅链</label><select id="chain"><option value="all">全部</option></select><label for="filter">状态</label><select id="filter"><option value="all">全部</option><option value="disputed">争议</option><option value="missing">缺刊</option><option value="covered">已覆盖</option></select></div>
           </div>
           <div class="register-scroll">
-            <table aria-label="应到与到藏对照"><thead><tr><th scope="col">订阅链</th><th scope="col">应到卷期</th><th scope="col">勾稽</th><th scope="col">到藏记录</th><th scope="col">原件</th></tr></thead><tbody id="register"></tbody></table>
+            <table aria-label="应到与到藏对照"><thead><tr><th scope="col">订阅链</th><th scope="col">应到卷期</th><th scope="col">勾稽</th><th scope="col">归属说明</th><th scope="col">到藏记录</th><th scope="col">原件</th></tr></thead><tbody id="register"></tbody></table>
           </div>
           <div class="sum" id="sum"></div>
         </section>
